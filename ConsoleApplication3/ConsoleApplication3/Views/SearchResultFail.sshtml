@@ -15,21 +15,15 @@
 </head>
 <body>
 	<img src="@Path['~/Content/nancy-logo.png']" alt="Nancy logo" /><br />
+	No users have been found with the given parameter pls try again
 
 
-	Press this button to add a new record
-	<form action="~/register" method="get">
-    <input type="submit" value="Register"/>
-	</form>
-
-	Press this button to delete a record
-	<form action="~/DeleteUser" method="get">
-    <input type="submit" value="Delete"/>
-	</form>
-		
-	Press this button to Search for a record
 	<form action="~/SearchUser" method="get">
     <input type="submit" value="Search"/>
+	</form>
+
+	<form action="~/" method="get">
+    <input type="submit" value="MainMenu"/>
 	</form>
 
 

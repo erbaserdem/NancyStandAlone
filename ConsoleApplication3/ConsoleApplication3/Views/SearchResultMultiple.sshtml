@@ -15,16 +15,18 @@
 </head>
 <body>
 	<img src="@Path['~/Content/nancy-logo.png']" alt="Nancy logo" /><br />
-	
-	Searched User is : 	<br>
-	@Model.Name	<br>
-	@Model.Email	<br>
-	@Model.UserName	<br>
-	@Model.Id <br>
+	Total of @Model.Count users are found  <br>
+	Found Users are :  <br>
+	@Each
+		@Current.Name	<br>
+		@Current.Email	<br>
+		@Current.UserName	<br>
+		@Current.Id <br>
+	@EndEach
 
 
-	<form action="~/register" method="get">
-    <input type="submit" value="Register"/>
+	<form action="~/" method="get">
+    <input type="submit" value="MainMenu"/>
 	</form>
 
 

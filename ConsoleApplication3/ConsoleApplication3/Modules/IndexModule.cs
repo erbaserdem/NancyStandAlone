@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using ConsoleApplication3.Models;
 using ConsoleApplication3.Service;
 using MongoDB.Bson;
 using Nancy;
+using Nancy.Responses;
+using Nancy.Xml;
 
 namespace ConsoleApplication3.Modules
 {
@@ -26,36 +29,74 @@ namespace ConsoleApplication3.Modules
 
             Get["/users/Name/{value}"] = parameters =>
             {
-                List<BsonDocument> list = new Find().CheckForUsers(parameters.value);
-                return list.Aggregate(string.Empty, (current, element) => current + (element.ToJson()));
-                //return View["ViewUser", new Find().CheckForExistingId(parameters.value)];
+                List<User> list = new Find().CheckForUsersWithName(parameters.value);
+                if (Request.Headers.ContentType.Contains("xml"))
+                {
+                    return Response.AsXml(list);
+                }
+                else if (Request.Headers.ContentType.Contains("json"))
+                {
+
+                    return Response.AsJson(list);
+                }
+                else if (Request.Headers.ContentType == "")
+                {
+
+                    return list;
+                }
+
+                return "Not a valid type";
             };
 
 
 
             Get["/users/id/{value}"] = parameters =>
             {
-                User userToFind = new Find().CheckForExistingId(parameters.value);
+                List<User> list = new Find().CheckForUsersWithId(parameters.value);
                 if (Request.Headers.ContentType.Contains("xml"))
                 {
-                    return Negotiate
-                        .WithModel(userToFind.ToJson())
-                        .WithMediaRangeModel("application/xml", userToFind);
-
+                    return Response.AsXml(list);
                 }
                 else if (Request.Headers.ContentType.Contains("json"))
                 {
 
-                    return userToFind.ToJson();
+                    return Response.AsJson(list);
                 }
                 else if (Request.Headers.ContentType == "")
                 {
 
-                    return userToFind;
+                    return list;
                 }
 
                 return "Not a valid type";
             };
+
+
+            Get["/DeleteUser"] = parameters =>
+            {
+                return View["DeleteUser"];
+
+            };
+
+            Get["/SearchUser"] = parameters =>
+            {
+                return View["SearchUser"];
+
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

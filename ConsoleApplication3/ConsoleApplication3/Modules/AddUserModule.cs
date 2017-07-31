@@ -16,15 +16,6 @@ namespace ConsoleApplication3.Modules
         {
             Post["/NewUser"] = parameters =>
             {
-                var newUser = this.Bind<User>();
-                if (new AddUser().AddUserDb(newUser, out message))
-                    return View["/tyforregister", message];
-                else
-                    return View["/ErrorRegister", message];
-            };
-
-            Post["/NewUser"] = parameters =>
-            {
 
                 var k = parameters;
                 if (Request.Headers.ContentType.Contains("xml"))
@@ -46,10 +37,21 @@ namespace ConsoleApplication3.Modules
                     else
                         return message;
                 }
+                else if (Request.Headers.ContentType.Contains("form-urlencoded"))
+                {
+                    var newUser = this.Bind<User>();
+                    if (new AddUser().AddUserDb(newUser, out message))
+                        return View["tyforregister"];
+                    else
+                        return View["ErrorRegister",message];
+                }
+
 
                 return "Not a valid content type";
 
             };
+
         }
+
     }
 }

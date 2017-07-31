@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NancyAspNetHost1</title>
+
+	<style type="text/css">
+
+		body {
+			text-align: center;
+		}
+
+	</style>
+
+</head>
+<body>
+	<img src="@Path['~/Content/nancy-logo.png']" alt="Nancy logo" /><br />
+	Enter the username or the id of the record you want to delete
+	<form action="~/DeleteUser/Id" method="Post">
+    <br>ID:  <input type="text" name="Id" placeholder="1269"/>
+    <br>
+    <input type="submit" value="WithId"/>
+	</form>
+
+
+	<form action="~/DeleteUser/UserName" method="Post">
+	<br>UserName:  <input type="text" name="UserName" placeholder="erdem.erbas"/>
+    <br>
+    <input type="submit" value="WithUserName"/>
+	</form>
+
+</body>
+</html>
